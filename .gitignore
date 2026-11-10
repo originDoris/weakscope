@@ -1,0 +1,16 @@
+# Binaries
+/dist/
+*.exe
+
+# IDE
+.idea/
+
+# macOS
+.DS_Store
+
+# Test & coverage
+*.out
+coverage.*
+
+# 本地开发产物（不入库的 trace）
+*.local.jsonl
