@@ -1,8 +1,9 @@
 package stats
 
 type Ewma struct {
-	Alpha float64
-	srtt  float64
+	Alpha       float64
+	srtt        float64
+	initialized bool
 }
 
 func NewEwma(alpha float64) *Ewma {
@@ -15,9 +16,11 @@ func (e *Ewma) Update(rtt float64) float64 {
 	if rtt <= 0 {
 		return e.srtt
 	}
-	if e.srtt == 0 {
+	if e.initialized {
+		e.srtt = (1-e.Alpha)*e.srtt + e.Alpha*rtt
+	} else {
 		e.srtt = rtt
 	}
-	e.srtt = (1-e.Alpha)*e.srtt + e.Alpha*rtt
+	e.initialized = true
 	return e.srtt
 }
